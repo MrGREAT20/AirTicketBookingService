@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const {Booking} = require('../models/index');
 const {ValidationError, AppError} = require('../utils/errors/index');
 const {StatusCodes} = require('http-status-codes');
@@ -11,6 +12,18 @@ class BookingRepository {
                 throw new ValidationError(error);
             }
             throw new AppError('RepositoryError', 'Cannot create Booking', 'There was some issue creating in booking, please try again later', StatusCodes.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async update(bookingId, data){
+        try {
+            await Booking.update({data}, {
+                where : {
+                    id:bookingId
+
+        }});
+        return true;
+        } catch (error) {
+            throw new AppError('RepositoryError', 'Cannot update Booking', 'There was some issue updating booking, please try again later', StatusCodes.INTERNAL_SERVER_ERROR);
         }
     }
 }
