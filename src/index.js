@@ -8,7 +8,8 @@ const db = require('./models/index');
 const setupAndStartServer = () => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
-    app.use('/api', ApiRoutes);
+    app.use('/bookingservice/api', ApiRoutes);
+    // this we changed because of the API gateway
     app.listen(PORT, () => {
         console.log(`Server started at ${PORT}`);
     })
